@@ -22,61 +22,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gymmate.ui.theme.GymmateTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            GymmateTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    GreetingPreview()
-                }
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                GreetingPreview()
+
             }
         }
     }
 }
 
-@Composable
-fun MainHomePage(modifier: Modifier = Modifier) {
-    Column(
-    ) {
-        DayDisplayCard("Monday","Cardio")
-    }
-}
-
-@Composable
-fun ExerciseDisplayCard(exerciseList: List<String>, modifier: Modifier = Modifier) {
-    Card(
-        modifier = Modifier.size(width=200.dp, height = 100.dp),
-        ) {
-
-    }
-}
-
-@Composable
-fun DayDisplayCard(day: String,exerciseType: String, modifier: Modifier = Modifier){
-    Card(
-        onClick = { /* Do something */ },
-        modifier = Modifier.size(width = 180.dp, height = 100.dp)
-    ) {
-        Text(
-            text = day,
-            Modifier.padding(10.dp),
-            fontSize = 20.sp,
-        )
-    }
-}
-
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    GymmateTheme {
-        MainHomePage()
-    }
+    GymmateApp()
 }
