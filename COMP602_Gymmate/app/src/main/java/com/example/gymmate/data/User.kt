@@ -8,6 +8,7 @@ data class User (
     var difficulty: Int,
     var daysAvailable: List<String>,
     var caloriesRequired: Int,
+    var exerciseList: List<ExerciseDay>,
     ){
     val bmi: Float = weight / (height*height)
 }

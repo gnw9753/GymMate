@@ -1,15 +1,7 @@
-package com.example.gymmate.homepage
+package com.example.gymmate.data
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.example.gymmate.data.Exercise
-import com.example.gymmate.data.ExerciseDay
+object BasicWeekTestSample {
 
-@Composable
-fun Homepage(modifier: Modifier = Modifier) {
     val exerciseList = listOf(
         Exercise(
             exerciseName = "Deadlift",
@@ -60,8 +52,4 @@ fun Homepage(modifier: Modifier = Modifier) {
         ),
     )
 
-    LazyColumn(modifier = modifier) {
-        items(workoutScheduleList) { item ->
-        }
-    }
 }

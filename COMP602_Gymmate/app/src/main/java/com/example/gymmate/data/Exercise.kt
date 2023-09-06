@@ -3,9 +3,21 @@ package com.example.gymmate.data
 data class Exercise (
     val exerciseName: String,
     val difficulty: Int,
-    val pushPull: Int,
+    val isPush: Boolean,
+    val isPull: Boolean,
     val modality: Int,
     val joint: Int,
     val muscle: String,
 ){
+
+
+
+    val setAndRepRange: String = when(difficulty){
+        1 -> SetAndRepRange().beginnerSet
+        2 -> SetAndRepRange().intermediateSet
+        3 -> SetAndRepRange().advancedSet
+        else -> SetAndRepRange().untilFailure
+    }
+
+
 }
