@@ -4,6 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homepage.MainActivity">
+    tools:context=".MainActivity">
 
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GymMate"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Personal Fitness Companion"
+            android:textSize="18sp"
+            android:layout_marginTop="36dp"
+            android:layout_gravity="center"
+            />
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="414dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign in or create an account"
+            android:textSize="16sp"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center_horizontal"
+            />
+        <EditText
+            android:id="@+id/Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="Email"
+            android:textSize="24sp"
+            android:layout_marginTop="130dp"
+            />
+        <Button
+            android:id="@+id/btn_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:textSize="24sp"
+            android:layout_marginTop="200dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or"
+            android:textSize="16sp"
+            android:layout_marginTop="260dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300dp"
+            android:backgroundTint="@color/white"
+            android:text="Sign in as guest"
+
+            android:textColor="@color/purple"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
