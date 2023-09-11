@@ -23,7 +23,7 @@ object BasicWeekTestSample {
         ExerciseDay(
             day = "Tuesday",
             exerciseList = exerciseList,
-            isAvailable = true,
+            isAvailable = false,
         ),
         ExerciseDay(
             day = "Wednesday",
@@ -33,7 +33,7 @@ object BasicWeekTestSample {
         ExerciseDay(
             day = "Thursday",
             exerciseList = exerciseList,
-            isAvailable = true,
+            isAvailable = false,
         ),
         ExerciseDay(
             day = "Friday",
@@ -48,7 +48,7 @@ object BasicWeekTestSample {
         ExerciseDay(
             day = "Sunday",
             exerciseList = exerciseList,
-            isAvailable = true,
+            isAvailable = false,
         ),
     )
 

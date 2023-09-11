@@ -9,15 +9,15 @@ data class Exercise (
     val joint: Int,
     val muscle: String,
 ){
-
-
-
-    val setAndRepRange: String = when(difficulty){
+    private val setAndRepRange: String = when(difficulty){
         1 -> SetAndRepRange().beginnerSet
         2 -> SetAndRepRange().intermediateSet
         3 -> SetAndRepRange().advancedSet
         else -> SetAndRepRange().untilFailure
     }
 
+    override fun toString(): String {
+        return "$exerciseName | $setAndRepRange"
+    }
 
 }
