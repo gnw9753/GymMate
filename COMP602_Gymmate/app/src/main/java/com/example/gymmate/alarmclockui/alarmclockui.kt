@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import java.util.*
 
-class AlarmClockUI : ComponentActivity() {
+class alarmclockui : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
