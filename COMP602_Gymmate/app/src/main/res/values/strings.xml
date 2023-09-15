@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Gymmate</string>
+    <string name="change_workout">Change Workout</string>
+    <string name="update">Update</string>
+    <string name="summary">Summary</string>
+    <string name="question">Question</string>
+    <string name="home">Home</string>
 </resources>
