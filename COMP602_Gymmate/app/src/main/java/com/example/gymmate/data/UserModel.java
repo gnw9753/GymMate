@@ -1,9 +1,12 @@
-package com.example.gymmatekotlin;
+package com.example.myapplication;
 
 
-public class UserModel {
+import java.io.Serializable;
+
+public class UserModel implements Serializable {
 
     private int id;
+    private String email;
     private String name;
     private String gender;
     private int age;
@@ -17,6 +20,7 @@ public class UserModel {
     public String toString() {
         return "UserModel{" +
                 "id=" + id +
+                ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
@@ -28,8 +32,9 @@ public class UserModel {
     }
 
     // Constructor
-    public UserModel(int id, String name, String gender, int age, int height, int weight, String goal, String days) {
+    public UserModel(int id, String email, String name, String gender, int age, int height, int weight, String goal, String days) {
         this.id = id;
+        this.email = email;
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -38,7 +43,17 @@ public class UserModel {
         this.goal = goal;
         this.days = days;
     }
-
+    public UserModel() {
+        // Initialize with default values or leave fields null/empty as needed
+        this.email = "";
+        this.name = "";
+        this.gender = "";
+        this.age = 0;
+        this.height = 0;
+        this.weight = 0;
+        this.goal = "";
+        this.days = "";
+    }
     // Getters and setters
     public int getId() {
         return id;
@@ -48,6 +63,12 @@ public class UserModel {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getName() {
         return name;
     }

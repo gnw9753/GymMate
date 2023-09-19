@@ -1,4 +1,4 @@
-package com.example.gymmatekotlin;
+package com.example.myapplication;
 public class FoodModel {
 
     private int id;
