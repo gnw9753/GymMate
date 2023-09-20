@@ -63,7 +63,7 @@ public class Confirmation extends AppCompatActivity {
         }
         String booleandays = getIntent().getStringExtra("daysChecked");
 
-        // button listenersmy
+        // button listeners
         btn_previous.setOnClickListener(view -> {
             Intent intent = new Intent(Confirmation.this, Days.class);
 
@@ -105,10 +105,10 @@ public class Confirmation extends AppCompatActivity {
             }
 
             Intent intent = new Intent(Confirmation.this, Calories.class);
-            intent.putExtra("age", age); // Pass the age to the next intent
-            intent.putExtra("gender", gender); // Pass the gender to the next intent
-            intent.putExtra("weight", weight);  // Pass the weight to the next intent
-            intent.putExtra("selectedGoals", selectedGoals); // Pass the goal to the next intent
+            intent.putExtra("age", age);
+            intent.putExtra("gender", gender);
+            intent.putExtra("weight", weight);
+            intent.putExtra("selectedGoals", selectedGoals);
             startActivity(intent);
 
         });

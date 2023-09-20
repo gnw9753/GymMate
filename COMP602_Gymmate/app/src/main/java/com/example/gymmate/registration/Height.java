@@ -37,7 +37,6 @@ public class Height extends AppCompatActivity {
             intent.putExtra("age", age);
             intent.putExtra("height", enteredHeight);
 
-            // Initiate the transition to the next activity
             startActivity(intent);
         });
 

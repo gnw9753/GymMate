@@ -21,13 +21,12 @@ public class Name extends AppCompatActivity {
         btn_next = findViewById(R.id.btn_next);
         et_name = findViewById(R.id.et_name);
 
-        // button listener
+        // button listeners
         btn_previous.setOnClickListener(view -> {
             Intent intent = new Intent(Name.this, Email.class);
             startActivity(intent);
         });
 
-        // button listener
         btn_next.setOnClickListener(view -> {
             String name = et_name.getText().toString();
             String email = getIntent().getStringExtra("email");

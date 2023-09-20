@@ -121,7 +121,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         UserModel user = null;
 
-        // Define the columns you want to retrieve
         String[] projection = {
                 COLUMN_ID,
                 COLUMN_USER_EMAIL,
@@ -134,11 +133,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 COLUMN_USER_DAYS
         };
 
-        // Define the selection criteria (WHERE clause)
         String selection = COLUMN_USER_EMAIL + " = ?";
         String[] selectionArgs = {email};
 
-        // Perform the query to retrieve the user by email
         Cursor cursor = db.query(
                 USER_TABLE,
                 projection,
@@ -173,7 +170,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_WEIGHT, newWeight);
 
-        // Define the WHERE clause to update the user with the matching email
         String whereClause = COLUMN_USER_EMAIL + " = ?";
         String[] whereArgs = {email};
 

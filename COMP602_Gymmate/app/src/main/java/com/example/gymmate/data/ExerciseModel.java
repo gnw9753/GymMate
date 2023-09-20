@@ -11,6 +11,8 @@ public class ExerciseModel {
     private String modality;
     private String joint;
 
+    // Constructor
+
     public ExerciseModel(String email, String day, String muscle, String name, String level, String part, String type, String modality, String joint) {
         this.email = email;
         this.day = day;
@@ -22,6 +24,7 @@ public class ExerciseModel {
         this.modality = modality;
         this.joint = joint;
     }
+    // Getters and setters
 
     public String getEmail() {
         return email;

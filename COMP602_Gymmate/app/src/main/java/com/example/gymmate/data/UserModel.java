@@ -43,17 +43,6 @@ public class UserModel implements Serializable {
         this.goal = goal;
         this.days = days;
     }
-    public UserModel() {
-        // Initialize with default values or leave fields null/empty as needed
-        this.email = "";
-        this.name = "";
-        this.gender = "";
-        this.age = 0;
-        this.height = 0;
-        this.weight = 0;
-        this.goal = "";
-        this.days = "";
-    }
     // Getters and setters
     public int getId() {
         return id;
