@@ -1,7 +1,7 @@
-package com.example.gymmate.data
+package com.example.gymmate.data.exercisedata
 
 data class ExerciseDay (
-    val day: String,
+    var day: String,
     var exerciseList: List<Exercise>,
     var isAvailable: Boolean,
 ){

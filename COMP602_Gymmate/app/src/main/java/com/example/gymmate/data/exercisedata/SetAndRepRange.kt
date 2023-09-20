@@ -1,4 +1,4 @@
-package com.example.gymmate.data
+package com.example.gymmate.data.exercisedata
 
 
 data class SetAndRepRange(

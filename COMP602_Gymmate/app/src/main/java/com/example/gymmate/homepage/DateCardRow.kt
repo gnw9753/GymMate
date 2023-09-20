@@ -28,8 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.gymmate.data.Exercise
-import com.example.gymmate.data.ExerciseDay
+import com.example.gymmate.data.exercisedata.Exercise
+import com.example.gymmate.data.exercisedata.ExerciseDay
 import com.example.gymmate.ui.theme.Typography
 
 @Composable
@@ -112,7 +112,7 @@ fun exerciseListOutput(isAvailable: Boolean, exerciseList: List<Exercise>): Stri
     if (isAvailable) {
         for (item in exerciseList) {
             item?.let {
-                exerciseString += item.toString() + "\n"
+                exerciseString += item.exerciseName + "\n"
             }
         }
     } else {
