@@ -293,15 +293,14 @@ public class FunsViewHelper {
             @Override
             public void onClick(View view) {
 
+                dialog.hide();
                 Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
                 alarmIntent.putExtra(AlarmClock.EXTRA_MESSAGE, spinerWorkout.getSelectedItem().toString());
                 alarmIntent.putExtra(AlarmClock.EXTRA_HOUR, timePicker.getHour());
                 alarmIntent.putExtra(AlarmClock.EXTRA_MINUTES, timePicker.getMinute());
-                alarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+                alarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, false);
                 alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(alarmIntent);
-
-                dialog.hide();
             }
         });
     }
