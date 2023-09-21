@@ -10,17 +10,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class Signin extends AppCompatActivity {
 
-    Button btn_sign_in, btn_new_account;
-    EditText et_email;
-    CheckBox checkBox;
-    SharedPreferences preferences;
+    private Button btn_sign_in, btn_new_account;
+    private EditText et_email;
+    private CheckBox checkBox;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signin);
 
         btn_sign_in = findViewById(R.id.btn_sign_in);
         btn_new_account = findViewById(R.id.btn_new_account);
@@ -57,16 +57,16 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // Pass the user data to the Calories activity
-                Intent intent = new Intent(MainActivity.this, Calories.class);
+                Intent intent = new Intent(Signin.this, Calories.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
             } else {
-                Toast.makeText(MainActivity.this, "Email not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Signin.this, "Email not found", Toast.LENGTH_SHORT).show();
             }
         });
 
         btn_new_account.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, Email.class); // Move from MainActivity class to Name class
+            Intent intent = new Intent(Signin.this, Email.class); // Move from Signin class to Name class
             startActivity(intent);
         });
     }
