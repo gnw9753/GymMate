@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Gender extends AppCompatActivity {
 
-    TextView tv_gender;
-    Button btn_male, btn_female, btn_previous, btn_next;
+    private TextView tv_gender;
+    private Button btn_male, btn_female, btn_previous, btn_next;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +24,11 @@ public class Gender extends AppCompatActivity {
         btn_next = findViewById(R.id.btn_next);
 
         // button listeners
-        btn_male.setOnClickListener(view ->{
+        btn_male.setOnClickListener(view -> {
             tv_gender.setText("Male");
         });
 
-        btn_female.setOnClickListener(view ->{
+        btn_female.setOnClickListener(view -> {
             tv_gender.setText("Female");
         });
 
@@ -37,7 +38,7 @@ public class Gender extends AppCompatActivity {
             String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
 
-            Intent intent = new Intent(Gender.this, MainActivity.class);
+            Intent intent = new Intent(Gender.this, Name.class);
 
             intent.putExtra("email", email);
             intent.putExtra("name", name);

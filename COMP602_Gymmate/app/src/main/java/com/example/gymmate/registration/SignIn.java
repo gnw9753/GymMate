@@ -57,16 +57,16 @@ public class SignIn extends AppCompatActivity {
                 }
 
                 // Pass the user data to the Calories activity
-                Intent intent = new Intent(Signin.this, Calories.class);
+                Intent intent = new Intent(SignIn.this, Calories.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
             } else {
-                Toast.makeText(Signin.this, "Email not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignIn.this, "Email not found", Toast.LENGTH_SHORT).show();
             }
         });
 
         btn_new_account.setOnClickListener(view -> {
-            Intent intent = new Intent(Signin.this, Email.class); // Move from SignIn class to Name class
+            Intent intent = new Intent(SignIn.this, Email.class); // Move from Signin class to Name class
             startActivity(intent);
         });
     }
