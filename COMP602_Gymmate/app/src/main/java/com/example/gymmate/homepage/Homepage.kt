@@ -15,6 +15,7 @@ fun Homepage(
     modifier: Modifier = Modifier
 ) {
     val homePageUiState by viewModel.homePageUiState.collectAsState()
+    homePageUiState.exerciseList
     var exerciseDayList = viewModel.exerciseListToExerciseDay()
     LazyColumn(modifier = modifier) {
         items(exerciseDayList) { exercise ->

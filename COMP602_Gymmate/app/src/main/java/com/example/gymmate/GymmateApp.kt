@@ -40,11 +40,11 @@ private fun GymmateNavHost(
         startDestination = GymmateRoute.QUESTION,
         modifier = modifier,
     ) {
-        composable(route = GymmateRoute.HOME) {
-            Homepage()
-        }
         composable(route = GymmateRoute.QUESTION) {
             QuestionPage(onNavigateUp = {navController.navigate(GymmateRoute.HOME)})
+        }
+        composable(route = GymmateRoute.HOME) {
+            Homepage()
         }
     }
 }
