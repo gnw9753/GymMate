@@ -23,7 +23,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
 
         <activity
             android:name=".registration.Age"
@@ -55,6 +57,7 @@
         <activity
             android:name=".registration.Email"
             android:exported="true" />
+
 
 
     </application>
