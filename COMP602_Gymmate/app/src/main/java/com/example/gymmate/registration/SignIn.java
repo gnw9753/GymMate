@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Signin extends AppCompatActivity {
+public class SignIn extends AppCompatActivity {
 
     private Button btn_sign_in, btn_new_account;
     private EditText et_email;
@@ -66,7 +66,7 @@ public class Signin extends AppCompatActivity {
         });
 
         btn_new_account.setOnClickListener(view -> {
-            Intent intent = new Intent(Signin.this, Email.class); // Move from Signin class to Name class
+            Intent intent = new Intent(Signin.this, Email.class); // Move from SignIn class to Name class
             startActivity(intent);
         });
     }
