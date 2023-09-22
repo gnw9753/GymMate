@@ -4,6 +4,7 @@
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <application
+        android:name=".GymmateApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,23 +15,59 @@
         android:theme="@style/Theme.Gymmate"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".registration.LoginActivity"
+=======
+            android:name=".ui.questionpage.Email"
+            android:exported="false" />
+        <activity
+            android:name=".ui.questionpage.Signin"
+>>>>>>> main
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Gymmate">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
 
         <activity
             android:name=".registration.Age"
+=======
+        <activity
+            android:name=".ui.questionpage.Age"
+            android:exported="true" />
+        <activity
+            android:name=".ui.questionpage.Calories"
+            android:exported="true" />
+        <activity
+            android:name=".ui.questionpage.Confirmation"
+            android:exported="true" />
+        <activity
+            android:name=".ui.questionpage.Days"
+            android:exported="true" />
+        <activity
+            android:name=".ui.questionpage.Gender"
+            android:exported="true" />
+        <activity
+            android:name=".ui.questionpage.Goal"
+            android:exported="true" />
+        <activity
+            android:name=".ui.questionpage.Height"
+            android:exported="true" />
+        <activity
+            android:name=".ui.questionpage.Name"
+            android:exported="true" />
+        <activity
+            android:name=".ui.questionpage.Weight"
+>>>>>>> main
             android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+<<<<<<< HEAD
         <activity
             android:name=".registration.Confirmation"
             android:exported="true" />
@@ -56,7 +93,10 @@
             android:name=".registration.Email"
             android:exported="true" />
 
+=======
+>>>>>>> main
 
     </application>
+
 
 </manifest>
