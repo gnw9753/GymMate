@@ -58,8 +58,8 @@ public class Signin extends AppCompatActivity {
                     editor.apply();
                 }
 
-                // Pass the user data to the Calories activity
-                Intent intent = new Intent(Signin.this, MainActivity.class);
+                // Pass the user data to the MainActivity
+                Intent intent = new Intent(Signin.this, Calories.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
             } else {

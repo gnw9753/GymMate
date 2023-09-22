@@ -269,23 +269,32 @@ public class Calories extends AppCompatActivity {
 
             selectedFoodList.removeAll(itemsToDelete);
 
-            ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+            if (selectedFoodList.isEmpty()) {
+                Toast.makeText(this, "Selected food list is empty.", Toast.LENGTH_SHORT).show();
+            } else {
+                ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
 
-            for (int i = 0; i < itemCount; i++) {
-                lv_latestList.setItemChecked(i, false);
+                for (int i = 0; i < itemCount; i++) {
+                    lv_latestList.setItemChecked(i, false);
+                }
+
+                // Calculate and update nutrition values
+                calculateAndUpdateNutrition();
+
             }
-
-            // Calculate and update nutrition values
-            calculateAndUpdateNutrition();
         });
 
         btn_clear.setOnClickListener(v -> {
-            selectedFoodList.clear();
+            if (selectedFoodList.isEmpty()) {
+                Toast.makeText(this, "Selected food list is empty.", Toast.LENGTH_SHORT).show();
+            } else {
+                selectedFoodList.clear();
 
-            ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+                ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
 
-            // Clear nutrition values
-            clearNutritionValues();
+                // Clear nutrition values
+                clearNutritionValues();
+            }
         });
         btn_weight_update.setOnClickListener(v -> {
             // Get the selected value from the NumberPicker

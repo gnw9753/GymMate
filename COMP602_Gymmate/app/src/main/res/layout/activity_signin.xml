@@ -18,10 +18,9 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
-            android:layout_gravity="top|center"
-            android:layout_marginTop="100dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/gymmate_logo" />
 
         <TextView
