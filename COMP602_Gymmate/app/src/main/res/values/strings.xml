@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Gymmate</string>
+    <string name="app_name">My Application</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="change_workout">Change Workout</string>
+    <string name="update">Update</string>
+    <string name="summary">Summary</string>
+    <string name="question">Question</string>
+    <string name="home">Home</string>
 </resources>
