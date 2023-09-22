@@ -7,6 +7,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.gymmate.MainActivity;
 import com.example.gymmate.R;
 public class Confirmation extends AppCompatActivity {
     private TextView tv_emailcheck, tv_namecheck, tv_ageCheck, tv_genderCheck, tv_heightcheck, tv_weightcheck, tv_goalcheck, tv_dayscheck;
@@ -59,7 +61,7 @@ public class Confirmation extends AppCompatActivity {
         }
         String days = getIntent().getStringExtra("daysList");
         if (days != null) {
-                tv_dayscheck.setText("Workout days: " + days);
+            tv_dayscheck.setText("Workout days: " + days);
         }
         String booleandays = getIntent().getStringExtra("daysChecked");
 

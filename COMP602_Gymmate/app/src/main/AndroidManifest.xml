@@ -53,6 +53,10 @@
         <activity
             android:name=".ui.questionpage.Weight"
             android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+
     </application>
 
 

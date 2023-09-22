@@ -7,9 +7,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.gymmate.MainActivity;
 import com.example.gymmate.R;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Signin extends AppCompatActivity {
@@ -59,7 +59,7 @@ public class Signin extends AppCompatActivity {
                 }
 
                 // Pass the user data to the Calories activity
-                Intent intent = new Intent(Signin.this, Calories.class);
+                Intent intent = new Intent(Signin.this, MainActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
             } else {

@@ -1,6 +1,7 @@
 package com.example.gymmate.ui.questionpage;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -20,10 +21,12 @@ import org.eazegraph.lib.models.PieModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.gymmate.MainActivity;
 import com.example.gymmate.R;
+
 public class Calories extends AppCompatActivity {
 
-    private Button btn_addFood, btn_addWeight, btn_weight_update_cancel, btn_food_add_cancel, btn_food_add, btn_clear, btn_delete, btn_weight_update;
+    private Button btn_addFood, btn_addWeight, btn_weight_update_cancel, btn_food_add_cancel, btn_food_add, btn_clear, btn_delete, btn_weight_update, btn_workout;
     private TextView tv_calDisplay, tv_protein, tv_carbs, tv_fat, tv_weight, tv_user_calories, tv_user_protein, tv_user_carbs, tv_user_fat;
     private PieChart piechart;
     private CardView cv_weightpanel, cv_foodpanel;
@@ -52,6 +55,7 @@ public class Calories extends AppCompatActivity {
         btn_clear = findViewById(R.id.btn_clear);
         btn_delete = findViewById(R.id.btn_delete);
         btn_weight_update = findViewById(R.id.btn_weight_update);
+        btn_workout = findViewById(R.id.btn_workout);
         piechart = findViewById(R.id.piechart);
         tv_protein = findViewById(R.id.tv_protein);
         tv_carbs = findViewById(R.id.tv_carbs);
@@ -307,7 +311,10 @@ public class Calories extends AppCompatActivity {
             // Hide the weight panel or perform any other necessary actions
             cv_weightpanel.setVisibility(View.GONE);
         });
-
+        btn_workout.setOnClickListener(v -> {
+            Intent intent = new Intent(Calories.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     public static int calculateValue(double doubleValue, int rate, int divideby) {
@@ -316,6 +323,7 @@ public class Calories extends AppCompatActivity {
 
         return result;
     }
+
     private void calculateAndUpdateNutrition() {
         totalCalories = 0;
         totalProtein = 0.0f;
