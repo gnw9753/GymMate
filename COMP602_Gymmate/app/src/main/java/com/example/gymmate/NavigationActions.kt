@@ -23,8 +23,19 @@ object GymmateRoute {
     const val HOME = "Home"
     const val QUESTION = "Question"
     const val SUMMARY = "Summary"
-    const val UPDATEDAILY = "Update"
+    const val CALORIES = "Calories"
     const val CHANGEWORKOUT = "ChangeWorkout"
+
+    // Question Pages
+    const val NAME = "Name"
+    const val EMAIL = "Email"
+    const val AGE = "Age"
+    const val GENDER = "Gender"
+    const val GOAL = "Goal"
+    const val WEIGHT = "Weight"
+    const val HEIGHT = "Height"
+    const val DAY = "Day"
+    const val CONFIRM = "Confirmation"
 
 }
 
@@ -67,7 +78,7 @@ val TOP_LEVEL_DESTINATIONS = listOf(
         iconTextId = R.string.summary
     ),
     GymmateTopLevelDestination(
-        route = GymmateRoute.UPDATEDAILY,
+        route = GymmateRoute.CALORIES,
         selectedIcon = Icons.Default.PieChart,
         unselectedIcon = Icons.Default.PieChart,
         iconTextId = R.string.update
