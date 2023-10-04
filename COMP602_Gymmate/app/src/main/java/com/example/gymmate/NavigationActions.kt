@@ -25,7 +25,6 @@ object GymmateRoute {
     const val SUMMARY = "Summary"
     const val CALORIES = "Calories"
     const val CHANGEWORKOUT = "ChangeWorkout"
-
     const val LOGIN = "Login"
     const val INITIALIZEUSER = "InitializeUser"
 

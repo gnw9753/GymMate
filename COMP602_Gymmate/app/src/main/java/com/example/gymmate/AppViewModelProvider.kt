@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import com.example.gymmate.caloriespage.CaloriesPageViewModel
 import com.example.gymmate.login.InitializeUserPageViewModel
 import com.example.gymmate.login.LoginPageViewModel
+import com.example.gymmate.summarypage.SummaryPage
+import com.example.gymmate.summarypage.SummaryPageViewModel
 
 
 object AppViewModelProvider {
@@ -28,6 +30,9 @@ object AppViewModelProvider {
         }
         initializer {
             CaloriesPageViewModel(gymmateApplication().container.exerciseRepository)
+        }
+        initializer {
+            SummaryPageViewModel(gymmateApplication().container.exerciseRepository, gymmateApplication().container.userEntityRepository)
         }
     }
 }
