@@ -7,8 +7,10 @@ import com.example.gymmate.data.exercisedata.ExerciseDay
 import com.example.gymmate.data.exercisedata.ExerciseRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class HomepageViewModel(exerciseRepository: ExerciseRepository) : ViewModel() {
 
@@ -20,7 +22,6 @@ class HomepageViewModel(exerciseRepository: ExerciseRepository) : ViewModel() {
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
                 initialValue = HomePageUiState()
             )
-
 
     fun exerciseListToExerciseDay(): List<ExerciseDay> {
         val exerciseList = homePageUiState.value.exerciseList
@@ -44,6 +45,7 @@ class HomepageViewModel(exerciseRepository: ExerciseRepository) : ViewModel() {
         }
         return exerciseDayList
     }
+
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L

@@ -161,9 +161,3 @@ fun ExerciseCardText(
     }
 
 }
-
-@Preview
-@Composable
-fun GreetingPreview() {
-    Homepage()
-}

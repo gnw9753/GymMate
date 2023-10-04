@@ -39,57 +39,82 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gymmate.AppViewModelProvider
+import com.example.gymmate.GymmateNavigationBar
+import com.example.gymmate.GymmateRoute
+import com.example.gymmate.NavigationActions
 import com.example.gymmate.data.exercisedata.Exercise
 import com.example.gymmate.ui.theme.Typography
 import com.example.gymmatekotlin.BasicPieChart
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CaloriesPage(
+    navigationActions: NavigationActions,
     viewModel: CaloriesPageViewModel = viewModel(factory = AppViewModelProvider.Factory),
     modifier: Modifier = Modifier
 ) {
-    var openBottomSheet by rememberSaveable { mutableStateOf(false) }
-    var skipPartiallyExpanded by remember { mutableStateOf(false) }
-    var edgeToEdgeEnabled by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
-    val bottomSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = skipPartiallyExpanded
-    )
     Column(
         modifier = Modifier
             .fillMaxHeight()
     ) {
-        PieCard()
-        LatestCard()
-        QuickAddCard()
-        Row(
-            horizontalArrangement = Arrangement.Center,
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp)
+                .weight(1f)
         ) {
-            Button(onClick = {
-                openBottomSheet = !openBottomSheet
-            }){
-                Text(text = "Add Food")
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = {
-                openBottomSheet = !openBottomSheet
-            }){
-                Text(text = "Add Weight")
-            }
+            PieCard()
+            LatestCard()
+            QuickAddCard()
+            FoodWeightButton(viewModel = viewModel)
+            BottomSheetWeight(viewModel)
+        }
+        GymmateNavigationBar(
+            selectedDestination = GymmateRoute.CALORIES,
+            navigateToTopLevelDestination = navigationActions::navigateTo
+        )
+    }
+}
 
+@Composable
+fun FoodWeightButton(
+    viewModel: CaloriesPageViewModel,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)
+    ) {
+        Button(onClick = {
+            viewModel.openBottomSheet = !viewModel.openBottomSheet
+        }) {
+            Text(text = "Add Food")
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        Button(onClick = {
+            viewModel.openBottomSheet = !viewModel.openBottomSheet
+        }) {
+            Text(text = "Add Weight")
         }
     }
-    if (openBottomSheet) {
-        val windowInsets = if (edgeToEdgeEnabled)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BottomSheetWeight(
+    viewModel: CaloriesPageViewModel,
+    modifier: Modifier = Modifier
+) {
+    val scope = rememberCoroutineScope()
+    val bottomSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = viewModel.skipPartiallyExpanded
+    )
+    if (viewModel.openBottomSheet) {
+        val windowInsets = if (viewModel.edgeToEdgeEnabled)
             WindowInsets(0) else BottomSheetDefaults.windowInsets
 
         ModalBottomSheet(
-            onDismissRequest = { openBottomSheet = false },
+            onDismissRequest = { viewModel.openBottomSheet = false },
             sheetState = bottomSheetState,
             windowInsets = windowInsets
         ) {
@@ -100,7 +125,7 @@ fun CaloriesPage(
                     onClick = {
                         scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
                             if (!bottomSheetState.isVisible) {
-                                openBottomSheet = false
+                                viewModel.openBottomSheet = false
                             }
                         }
                     }
@@ -126,6 +151,7 @@ fun CaloriesPage(
         }
     }
 }
+
 
 @Composable
 fun PieCard(modifier: Modifier = Modifier) {
@@ -251,8 +277,8 @@ fun QuickAddCard(modifier: Modifier = Modifier) {
             )
             var foodList = listOf("burger", "big burger", "cheese burger")
             var count = 0
-            for(food in foodList){
-                if(count > 2) break
+            for (food in foodList) {
+                if (count > 2) break
                 food?.let {
                     QuickAddRow(food = it)
                 }
@@ -263,9 +289,10 @@ fun QuickAddCard(modifier: Modifier = Modifier) {
 
 @Composable
 fun QuickAddRow(food: String, modifier: Modifier = Modifier) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-    ){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         Text(
             text = food,
             style = Typography.displaySmall,

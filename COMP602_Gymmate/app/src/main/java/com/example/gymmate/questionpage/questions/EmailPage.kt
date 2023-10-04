@@ -54,7 +54,7 @@ fun EmailPage(
         TextButton(
             onClick = {
                 validate(viewModel.email)
-                //if(!isError)
+                if(!isError)
                     viewModel.increasePageIndex()
             },
             modifier = Modifier

@@ -57,8 +57,7 @@ fun HeightPage(viewModel: QuestionPageViewModel, modifier: Modifier = Modifier) 
         TextButton(
             onClick = {
                 validate(viewModel.height)
-                //if(!isError)
-                viewModel.increasePageIndex()
+                if(!isError) viewModel.increasePageIndex()
             },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

@@ -26,16 +26,8 @@ object GymmateRoute {
     const val CALORIES = "Calories"
     const val CHANGEWORKOUT = "ChangeWorkout"
 
-    // Question Pages
-    const val NAME = "Name"
-    const val EMAIL = "Email"
-    const val AGE = "Age"
-    const val GENDER = "Gender"
-    const val GOAL = "Goal"
-    const val WEIGHT = "Weight"
-    const val HEIGHT = "Height"
-    const val DAY = "Day"
-    const val CONFIRM = "Confirmation"
+    const val LOGIN = "Login"
+    const val INITIALIZEUSER = "InitializeUser"
 
 }
 

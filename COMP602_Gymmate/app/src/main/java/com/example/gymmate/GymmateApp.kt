@@ -9,6 +9,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.gymmate.caloriespage.CaloriesPage
+import com.example.gymmate.homepage.Homepage
+import com.example.gymmate.login.InitializeUserPage
+import com.example.gymmate.login.LoginPage
 import com.example.gymmate.questionpage.questions.EmailPage
 import com.example.gymmate.questionpage.questions.NamePage
 import com.example.gymmate.questionpage.QuestionPage
@@ -18,23 +22,18 @@ import com.google.android.material.bottomappbar.BottomAppBar
 @Composable
 fun GymmateApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    val navigationActions = remember(navController) {
-        NavigationActions(navController)
-    }
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
+
+        /*
+        GymmateNavigationBar(
+            selectedDestination = GymmateRoute.HOME,
+            navigateToTopLevelDestination = navigationActions::navigateTo
+        )*/
+
         GymmateNavHost(navController = navController, modifier = Modifier.weight(1f))
-        if (navController.currentDestination.toString() == GymmateRoute.HOME ||
-            navController.currentDestination.toString() == GymmateRoute.CALORIES ||
-            navController.currentDestination.toString() == GymmateRoute.SUMMARY
-            ) {
-            GymmateNavigationBar(
-                selectedDestination = GymmateRoute.HOME,
-                navigateToTopLevelDestination = navigationActions::navigateTo
-            )
-        }
     }
 }
 
@@ -43,23 +42,32 @@ private fun GymmateNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    val navigationActions = remember(navController) {
+        NavigationActions(navController)
+    }
     NavHost(
         navController = navController,
-        startDestination = GymmateRoute.QUESTION,
+        startDestination = GymmateRoute.LOGIN,
         modifier = modifier,
     ) {
-        /*
-        composable(route = GymmateRoute.HOME) {
-            Homepage()
-        }*/
-        composable(route = GymmateRoute.QUESTION) {
-            QuestionPage(onNavigateUp = { navController.navigate(GymmateRoute.HOME) })
-        }
 
-        /*
+        composable(route = GymmateRoute.LOGIN) {
+            LoginPage(
+                navigateToQuestion = { navController.navigate(GymmateRoute.QUESTION) },
+                navigateToInitializeUser = { navController.navigate(GymmateRoute.INITIALIZEUSER) })
+        }
+        composable(route = GymmateRoute.QUESTION) {
+            QuestionPage(navigateToHomePage = { navController.navigate(GymmateRoute.INITIALIZEUSER) })
+        }
+        composable(route = GymmateRoute.INITIALIZEUSER) {
+            InitializeUserPage(navigateToHomePage = { navController.navigate(GymmateRoute.HOME) })
+        }
+        composable(route = GymmateRoute.HOME) {
+            Homepage(navigationActions)
+        }
         composable(route = GymmateRoute.CALORIES) {
-            CaloriesPage()
-        }*/
+            CaloriesPage(navigationActions)
+        }
     }
 }
 

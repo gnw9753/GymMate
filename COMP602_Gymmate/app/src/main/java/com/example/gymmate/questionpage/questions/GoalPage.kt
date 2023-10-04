@@ -62,8 +62,10 @@ fun GoalPage(viewModel: QuestionPageViewModel, modifier: Modifier = Modifier) {
         }
         TextButton(
             onClick = {
-                //if(hasSelect)
-                viewModel.increasePageIndex()
+                if (viewModel.hasSelectGoal) {
+                    viewModel.goalToString()
+                    viewModel.increasePageIndex()
+                }
             },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

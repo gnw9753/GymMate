@@ -8,15 +8,23 @@ import com.example.gymmate.homepage.HomepageViewModel
 import com.example.gymmate.questionpage.QuestionPageViewModel
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import com.example.gymmate.caloriespage.CaloriesPageViewModel
+import com.example.gymmate.login.InitializeUserPageViewModel
+import com.example.gymmate.login.LoginPageViewModel
 
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
         initializer {
-            HomepageViewModel(gymmateApplication().container.exerciseRepository)
+            LoginPageViewModel(gymmateApplication().container.userEntityRepository)
         }
         initializer {
-            QuestionPageViewModel(gymmateApplication().container.exerciseRepository)
+            QuestionPageViewModel(gymmateApplication().container.exerciseRepository, gymmateApplication().container.userEntityRepository)
+        }
+        initializer {
+            InitializeUserPageViewModel(gymmateApplication().container.exerciseRepository, gymmateApplication().container.userEntityRepository)
+        }
+        initializer {
+            HomepageViewModel(gymmateApplication().container.exerciseRepository)
         }
         initializer {
             CaloriesPageViewModel(gymmateApplication().container.exerciseRepository)

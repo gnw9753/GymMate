@@ -57,7 +57,7 @@ import com.example.gymmate.ui.theme.Typography
 @Composable
 fun QuestionPage(
     viewModel: QuestionPageViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    onNavigateUp: () -> Unit,
+    navigateToHomePage: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val questionPageUiState by viewModel.uiState.collectAsState()
@@ -66,7 +66,7 @@ fun QuestionPage(
         animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec, label = ""
     )
     if(questionPageUiState.pageIndex > 9){
-        LoadingPage(viewModel)
+        LoadingPage(viewModel, navigateToHomePage)
     }
     else{
 
@@ -203,6 +203,7 @@ fun CallQuestionPages(index: Int, viewModel: QuestionPageViewModel) {
         }
 
         else -> {
+            LoadingPage(viewModel, navigateToInitializeScreen = { /*TODO*/ })
         }
     }
 }
@@ -222,9 +223,3 @@ Button(
         text = "Confirm"
     )
 }*/
-
-@Preview
-@Composable
-fun Preview() {
-    QuestionPage(onNavigateUp = { })
-}
