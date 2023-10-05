@@ -4,7 +4,7 @@ import com.example.gymmate.data.exercisedata.Exercise
 import com.example.gymmate.data.exercisedata.ExerciseDay
 import com.example.gymmate.data.userdata.User
 
-class GenerateWorkout(var user: User, val exerciseList: List<List<String>>){
+class GenerateWorkout(var userId: Int, var goal: String, var daysAvailable: List<Boolean>, val exerciseList: List<List<String>>){
 
     val dayString =
         listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
@@ -86,7 +86,7 @@ class GenerateWorkout(var user: User, val exerciseList: List<List<String>>){
         while (count < 7) {
             // Temp values needed to initialize
             val tempDay = dayString[count]
-            val tempIsAvailable: Boolean = user.user_days[count]
+            val tempIsAvailable: Boolean = daysAvailable[count]
             var tempExerciseList: MutableList<Exercise> = mutableListOf()
 
 
@@ -95,7 +95,7 @@ class GenerateWorkout(var user: User, val exerciseList: List<List<String>>){
                     tempDay,
                     tempExerciseList,
                     workoutPriority[count % 4],
-                    user.user_goal
+                    goal
                 )
             }
             exerciseDayList.add(ExerciseDay(tempDay, tempExerciseList, tempIsAvailable))
@@ -107,15 +107,15 @@ class GenerateWorkout(var user: User, val exerciseList: List<List<String>>){
     // Sub functions
     fun amountDaysAvailable(): Int {
         var count = 0
-        for (days in user.user_days) {
-            if (days == true) {
+        for (days in daysAvailable) {
+            if (days) {
                 count++
             }
         }
         return count
     }
 
-    fun toList() {
+    private fun toList() {
         var muscleIndex = 0
         var listIndex = 0
 
@@ -133,9 +133,10 @@ class GenerateWorkout(var user: User, val exerciseList: List<List<String>>){
         }
     }
 
-    fun stringToExercise(exerciseString: List<String>): Exercise {
+    private fun stringToExercise(exerciseString: List<String>): Exercise {
         // Sorry for my crime, it must be done to initialize the exercise object
         return (Exercise(
+            id = userId,
             "",
             exerciseString[0],
             exerciseString[1],
@@ -155,7 +156,7 @@ class GenerateWorkout(var user: User, val exerciseList: List<List<String>>){
         muscleListToAdd: List<MutableList<Exercise>>,
         difficulty: String
     ) {
-        if (difficulty.equals("Building muscle", ignoreCase = true)) {
+        if (difficulty.equals("gain muscle", ignoreCase = true)) {
             exerciseDayList.addAll(
                 addExercise(
                     day,
@@ -176,7 +177,7 @@ class GenerateWorkout(var user: User, val exerciseList: List<List<String>>){
             exerciseDayList.addAll(addExercise(day, muscleListToAdd[2], 1, "Beginner"))
 
 
-        } else if (difficulty.equals("Losing weight", ignoreCase = true)) {
+        } else if (difficulty.equals("lose weight", ignoreCase = true)) {
             exerciseDayList.addAll(addExercise(day, muscleListToAdd[0], 2, "Beginner"))
             exerciseDayList.addAll(
                 addExercise(

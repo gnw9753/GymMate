@@ -11,11 +11,21 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ExerciseDao{
 
+    @Query("SELECT * FROM exercises WHERE id = :id")
+    fun getAllExercisesFromId(id: Int): Flow<List<Exercise>>
+
     @Query("SELECT * FROM exercises")
     fun getAllExercises(): Flow<List<Exercise>>
 
     @Query("DELETE FROM exercises")
     fun deleteAllExercises()
+
+    // To support multi user functionality
+    @Query("DELETE FROM exercises WHERE id = :id")
+    fun deleteAllExerciseById(id: Int)
+
+    @Query("Delete FROM exercises WHERE id = :id AND day = :day")
+    fun deleteAllExerciseByIDAndDay(id: Int, day: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(exercise: Exercise)
