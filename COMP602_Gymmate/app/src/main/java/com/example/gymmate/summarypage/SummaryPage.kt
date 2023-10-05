@@ -63,10 +63,16 @@ fun SummaryPage(
                 .weight(1f)
         ) {
             WeightGraphCard(
+                modifier = Modifier
+                    .weight(1f)
             )
             CaloriesGraphCard(
+                modifier = Modifier
+                    .weight(1f)
             )
             BottomButton(
+                modifier = Modifier
+                    .weight(1f)
             )
         }
 
@@ -81,8 +87,9 @@ fun SummaryPage(
 @Composable
 fun WeightGraphCard(modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
+            .fillMaxHeight()
     ) {
         Text("Weight graph")
     }
@@ -91,8 +98,9 @@ fun WeightGraphCard(modifier: Modifier = Modifier) {
 @Composable
 fun CaloriesGraphCard(modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
+            .fillMaxHeight()
     ) {
         Text("calories graph")
     }
@@ -103,8 +111,9 @@ fun BottomButton(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
+            .fillMaxHeight()
     ) {
         TopRowButton()
         BottomRowButton()
