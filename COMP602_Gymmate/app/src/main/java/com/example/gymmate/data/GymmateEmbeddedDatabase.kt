@@ -6,17 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.gymmate.data.exercisedata.Exercise
 import com.example.gymmate.data.exercisedata.ExerciseDao
+import com.example.gymmate.data.logindata.LoginEntity
+import com.example.gymmate.data.logindata.LoginEntityDao
 import com.example.gymmate.data.userdata.UserEntity
 import com.example.gymmate.data.userdata.UserEntityDao
 
 @Database(
-    entities = [Exercise::class, UserEntity::class],
+    entities = [Exercise::class, UserEntity::class, LoginEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class GymmateEmbeddedDatabase : RoomDatabase(){
         abstract fun exerciseDao(): ExerciseDao
         abstract fun userEntityDao(): UserEntityDao
+        abstract fun loginEntityDao(): LoginEntityDao
 
         companion object {
             @Volatile

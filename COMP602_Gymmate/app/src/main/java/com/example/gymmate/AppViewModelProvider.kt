@@ -20,19 +20,32 @@ object AppViewModelProvider {
             LoginPageViewModel(gymmateApplication().container.userEntityRepository)
         }
         initializer {
-            QuestionPageViewModel(gymmateApplication().container.exerciseRepository, gymmateApplication().container.userEntityRepository)
+            QuestionPageViewModel(
+                gymmateApplication().container.exerciseRepository,
+                gymmateApplication().container.userEntityRepository,
+                gymmateApplication().container.loginEntityRepository
+            )
         }
         initializer {
-            InitializeUserPageViewModel(gymmateApplication().container.exerciseRepository, gymmateApplication().container.userEntityRepository)
+            InitializeUserPageViewModel(
+                gymmateApplication().container.exerciseRepository,
+                gymmateApplication().container.userEntityRepository
+            )
         }
         initializer {
-            HomepageViewModel(gymmateApplication().container.exerciseRepository)
+            HomepageViewModel(
+                gymmateApplication().container.exerciseRepository,
+                gymmateApplication().container.loginEntityRepository
+            )
         }
         initializer {
             CaloriesPageViewModel(gymmateApplication().container.exerciseRepository)
         }
         initializer {
-            SummaryPageViewModel(gymmateApplication().container.exerciseRepository, gymmateApplication().container.userEntityRepository)
+            SummaryPageViewModel(
+                gymmateApplication().container.exerciseRepository,
+                gymmateApplication().container.userEntityRepository
+            )
         }
     }
 }

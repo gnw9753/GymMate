@@ -13,6 +13,8 @@ import com.example.gymmate.data.ReadExerciseCSV
 import com.example.gymmate.data.exercisedata.Exercise
 import com.example.gymmate.data.exercisedata.ExerciseDay
 import com.example.gymmate.data.exercisedata.ExerciseRepository
+import com.example.gymmate.data.logindata.LoginEntityRepository
+import com.example.gymmate.data.logindata.OfflineLoginEntityRepository
 import com.example.gymmate.data.userdata.User
 import com.example.gymmate.data.userdata.UserEntity
 import com.example.gymmate.data.userdata.UserEntityRepository
@@ -27,7 +29,8 @@ import kotlinx.coroutines.launch
 
 class QuestionPageViewModel(
     private val exerciseRepository: ExerciseRepository,
-    private val userEntityRepository: UserEntityRepository
+    private val userEntityRepository: UserEntityRepository,
+    private val loginEntityRepository: LoginEntityRepository,
 ) : ViewModel() {
     /*
     var questionPageUiState by mutableStateOf(QuestionPageUiState())
