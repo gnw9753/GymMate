@@ -33,22 +33,26 @@ import com.example.gymmate.data.exercisedata.ExerciseDay
 import com.example.gymmate.ui.theme.Typography
 
 @Composable
-fun DateCardRow(day: String, exerciseDay: ExerciseDay, modifier: Modifier = Modifier) {
+fun DateCardRow(viewModel: HomepageViewModel, day: String, exerciseDay: ExerciseDay, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(5.dp)
 
     ) {
-        DayCard(day)
+        DayCard(viewModel, day)
         ExerciseCard(exerciseDay.isAvailable, exerciseDay.exerciseList)
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DayCard(day: String, modifier: Modifier = Modifier) {
+fun DayCard(viewModel: HomepageViewModel, day: String, modifier: Modifier = Modifier) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
         border = BorderStroke(1.dp, Color.LightGray),
+        onClick = {
+                  viewModel.dayCompletedPressed(day)
+        },
         modifier = Modifier
             .height(100.dp)
     ) {
@@ -62,6 +66,10 @@ fun DayCard(day: String, modifier: Modifier = Modifier) {
                 style = Typography.headlineMedium,
 
                 )
+            Text(
+                text = if(viewModel.checkIfLoggedIn(day.substring(0,3)))"Completed" else "Tap to complete",
+                style = Typography.bodyMedium
+            )
         }
     }
 }

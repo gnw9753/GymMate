@@ -25,12 +25,20 @@ fun Homepage(
     modifier: Modifier = Modifier
 ) {
     var exerciseDayList = UserInstance.currentUser?.exercise_schedule
+    val homePageUiState by viewModel.homePageUiState.collectAsState()
+
    Column(
        modifier = Modifier
            .fillMaxSize()
    ) {
        // Top horizontal slider // Carousel
-       TopBarSwap(viewModel = viewModel, modifier = modifier.weight(0.25f))
+       homePageUiState.loginEntity?.let {
+           TopBarSwap(
+               it,
+               viewModel = viewModel,
+               modifier = modifier.weight(0.25f)
+           )
+       }
        
        // Logic to decide to display homepage or exercise video page
        Divider(
@@ -43,6 +51,7 @@ fun Homepage(
        ) {
            items(exerciseDayList ?: emptyList()) { exercise ->
                DateCardRow(
+                   viewModel,
                    day = exercise.day,
                    exerciseDay = exercise,
                )

@@ -13,6 +13,7 @@ import com.example.gymmate.data.ReadExerciseCSV
 import com.example.gymmate.data.exercisedata.Exercise
 import com.example.gymmate.data.exercisedata.ExerciseDay
 import com.example.gymmate.data.exercisedata.ExerciseRepository
+import com.example.gymmate.data.logindata.LoginEntity
 import com.example.gymmate.data.logindata.LoginEntityRepository
 import com.example.gymmate.data.logindata.OfflineLoginEntityRepository
 import com.example.gymmate.data.userdata.User
@@ -26,6 +27,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 class QuestionPageViewModel(
     private val exerciseRepository: ExerciseRepository,
@@ -152,6 +158,29 @@ class QuestionPageViewModel(
         userEntityRepository.insertUser(user)
     }
 
+    fun timestampToDateString(timestamp: Long): String {
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        sdf.timeZone = TimeZone.getTimeZone("Pacific/Auckland") // Set the timezone to New Zealand (Pacific/Auckland)
+        val date = Date(timestamp)
+        return sdf.format(date)
+    }
+
+    private suspend fun toLoginEntityDatabase(id: Int, email: String) {
+        val currentDate = Calendar.getInstance()
+        currentDate.set(Calendar.HOUR_OF_DAY, 0)
+        currentDate.set(Calendar.MINUTE, 0)
+        currentDate.set(Calendar.SECOND, 0)
+        currentDate.set(Calendar.MILLISECOND, 0)
+        val dateStarted = currentDate.timeInMillis
+
+        val loginEntity: LoginEntity = LoginEntity(
+            id = id,
+            email = email,
+            dateStarted = dateStarted
+        )
+        loginEntityRepository.insertUserLogin(loginEntity)
+    }
+
     suspend fun createUserProfile(context: Context) {
 
         toUserEntityDatabase()
@@ -167,6 +196,9 @@ class QuestionPageViewModel(
                         exerciseRepository.insertExercise(exercise)
                     }
                 }
+            }
+            if (userEntity != null) {
+                toLoginEntityDatabase(userEntity.id, userEntity.email)
             }
         }
 

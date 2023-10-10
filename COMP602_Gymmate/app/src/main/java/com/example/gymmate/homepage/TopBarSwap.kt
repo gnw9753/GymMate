@@ -23,12 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.gymmate.data.logindata.LoginEntity
 import java.text.SimpleDateFormat
 import java.util.Locale
 import com.example.gymmate.ui.theme.Typography
 
 @Composable
 fun TopBarSwap(
+    loginEntity: LoginEntity,
     viewModel: HomepageViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -41,7 +43,10 @@ fun TopBarSwap(
         if (viewModel.displayTutorial) {
             VideoSliderTopbar(viewModel = viewModel)
         } else {
-            DayDisplayTopBar(viewModel = viewModel)
+            DayDisplayTopBar(
+                loginEntity,
+                viewModel
+            )
         }
     }
 }

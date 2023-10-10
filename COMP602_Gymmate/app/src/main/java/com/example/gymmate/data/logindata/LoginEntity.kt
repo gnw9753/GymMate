@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "user_login")
 data class LoginEntity(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
-    var email: String,
-    var dateStarted: Long,
+    var email: String = "",
+    var dateStarted: Long = 0L,
     val mondayLoggedIn: Boolean = false,
     val tuesdayLoggedIn: Boolean = false,
     val wednesdayLoggedIn: Boolean = false,

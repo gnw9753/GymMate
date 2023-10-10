@@ -19,10 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.gymmate.data.logindata.LoginEntity
 import com.example.gymmate.ui.theme.Typography
 
 @Composable
 fun DayDisplayTopBar(
+    loginEntity: LoginEntity,
     viewModel: HomepageViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -33,7 +35,7 @@ fun DayDisplayTopBar(
                 .fillMaxSize()
         ) {
             items(listOfDays) { day ->
-                DayCard(day, false)
+                DayCard(day, viewModel.checkIfLoggedIn(day))
             }
         }
     }
