@@ -38,8 +38,6 @@ class HomepageViewModel(
     fun dayCompletedPressed(day: String) {
         val weekDayList = listOf("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
         val index = weekDayList.indexOf(day)
-
-        println("DAY PRESSED: " + index)
         viewModelScope.launch {
             val currentLoginEntity = homePageUiState.value.loginEntity
             if (currentLoginEntity != null) {

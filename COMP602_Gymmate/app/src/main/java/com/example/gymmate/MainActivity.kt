@@ -22,7 +22,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Theme(darkTheme = false) {
-                GymmateApp()
+                //GymmateApp()
+                CaloriesPage()
             }
         }
     }

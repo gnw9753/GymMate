@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gymmate.caloriespage.CaloriesPage
+import com.example.gymmate.caloriespage.SearchFoodPage
 import com.example.gymmate.homepage.Homepage
 import com.example.gymmate.login.InitializeUserPage
 import com.example.gymmate.login.LoginPage
@@ -67,11 +68,12 @@ private fun GymmateNavHost(
             Homepage(navigationActions)
         }
         composable(route = GymmateRoute.CALORIES) {
-            CaloriesPage(navigationActions)
+            CaloriesPage()
         }
         composable(route = GymmateRoute.SUMMARY) {
             SummaryPage(navigationActions)
         }
+
     }
 }
 

@@ -89,6 +89,10 @@ dependencies {
     implementation("com.google.protobuf:protobuf-javalite:3.24.4")
     implementation("com.google.protobuf:protobuf-kotlin-lite:3.24.4")
 
+    // Test rules and transitive dependencies:
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.7")
+// Needed for createAndroidComposeRule, but not createComposeRule:
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.7")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -39,7 +39,9 @@ object AppViewModelProvider {
             )
         }
         initializer {
-            CaloriesPageViewModel(gymmateApplication().container.exerciseRepository)
+            CaloriesPageViewModel(
+                gymmateApplication().container.foodConsumptionRepository
+            )
         }
         initializer {
             SummaryPageViewModel(

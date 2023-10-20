@@ -4,7 +4,12 @@ import com.example.gymmate.data.exercisedata.Exercise
 import com.example.gymmate.data.exercisedata.ExerciseDay
 import com.example.gymmate.data.userdata.User
 
-class GenerateWorkout(var userId: Int, var goal: String, var daysAvailable: List<Boolean>, val exerciseList: List<List<String>>){
+class GenerateWorkout(
+    var userId: Int,
+    var goal: String,
+    var daysAvailable: List<Boolean>,
+    val exerciseList: List<List<String>>
+) {
 
     val dayString =
         listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
@@ -68,7 +73,15 @@ class GenerateWorkout(var userId: Int, var goal: String, var daysAvailable: List
 
     // Main function
 
-    fun generateWorkout() :List<ExerciseDay>{
+    fun generateWorkout(): List<ExerciseDay> {
+        // Error checking for missing values
+        if (
+            userId == null ||
+            goal == null ||
+            daysAvailable.isEmpty() ||
+            exerciseList.isEmpty()
+        ) return emptyList()
+
         // Puts all the exercises into a list
         toList()
         // Calculate the amount of days the user will be working out
@@ -189,6 +202,18 @@ class GenerateWorkout(var userId: Int, var goal: String, var daysAvailable: List
             )
             exerciseDayList.addAll(addExercise(day, muscleListToAdd[1], 2, "Beginner"))
             exerciseDayList.addAll(addExercise(day, muscleListToAdd[2], 1, "Beginner"))
+        } else {
+            // Else when goal is not "gain muscle" or "lose weight"
+            // And sets all exercise to be beginner
+            exerciseDayList.addAll(
+                addExercise(day, muscleListToAdd[0], 2, "Beginner")
+            )
+            exerciseDayList.addAll(
+                addExercise(day, muscleListToAdd[1], 2, "Beginner")
+            )
+            exerciseDayList.addAll(
+                addExercise(day, muscleListToAdd[2], 2, "Beginner")
+            )
         }
     }
 

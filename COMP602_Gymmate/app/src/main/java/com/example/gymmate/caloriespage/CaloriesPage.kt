@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,10 +50,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun CaloriesPage(
-    navigationActions: NavigationActions,
     viewModel: CaloriesPageViewModel = viewModel(factory = AppViewModelProvider.Factory),
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    viewModel.loadCSV(context)
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -61,18 +63,26 @@ fun CaloriesPage(
             modifier = Modifier
                 .weight(1f)
         ) {
-            PieCard()
-            LatestCard()
-            QuickAddCard()
-            FoodWeightButton(viewModel = viewModel)
-            BottomSheetWeight(viewModel)
+            if (viewModel.displayAddFood) {
+                SearchFoodPage(
+                    viewModel = viewModel,
+                )
+            } else {
+                PieCard()
+                LatestCard()
+                QuickAddCard()
+                FoodWeightButton(viewModel = viewModel)
+            }
+
         }
+        /*
         GymmateNavigationBar(
             selectedDestination = GymmateRoute.CALORIES,
             navigateToTopLevelDestination = navigationActions::navigateTo
-        )
+        )*/
     }
 }
+
 
 @Composable
 fun FoodWeightButton(
@@ -86,68 +96,14 @@ fun FoodWeightButton(
             .padding(5.dp)
     ) {
         Button(onClick = {
-            viewModel.openBottomSheet = !viewModel.openBottomSheet
+            viewModel.displayAddFood = true
         }) {
             Text(text = "Add Food")
         }
         Spacer(modifier = Modifier.weight(1f))
         Button(onClick = {
-            viewModel.openBottomSheet = !viewModel.openBottomSheet
         }) {
             Text(text = "Add Weight")
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun BottomSheetWeight(
-    viewModel: CaloriesPageViewModel,
-    modifier: Modifier = Modifier
-) {
-    val scope = rememberCoroutineScope()
-    val bottomSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = viewModel.skipPartiallyExpanded
-    )
-    if (viewModel.openBottomSheet) {
-        val windowInsets = if (viewModel.edgeToEdgeEnabled)
-            WindowInsets(0) else BottomSheetDefaults.windowInsets
-
-        ModalBottomSheet(
-            onDismissRequest = { viewModel.openBottomSheet = false },
-            sheetState = bottomSheetState,
-            windowInsets = windowInsets
-        ) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Button(
-                    // Note: If you provide logic outside of onDismissRequest to remove the sheet,
-                    // you must additionally handle intended state cleanup, if any.
-                    onClick = {
-                        scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
-                            if (!bottomSheetState.isVisible) {
-                                viewModel.openBottomSheet = false
-                            }
-                        }
-                    }
-                ) {
-                    Text("Hide Bottom Sheet")
-                }
-            }
-            var text by remember { mutableStateOf("") }
-            OutlinedTextField(value = text, onValueChange = { text = it })
-            LazyColumn {
-                items(50) {
-                    ListItem(
-                        headlineContent = { Text("Item $it") },
-                        leadingContent = {
-                            Icon(
-                                Icons.Default.Favorite,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    )
-                }
-            }
         }
     }
 }

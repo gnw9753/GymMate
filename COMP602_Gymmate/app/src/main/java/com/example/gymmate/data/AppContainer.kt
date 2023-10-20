@@ -3,6 +3,8 @@ package com.example.gymmate.data
 import android.content.Context
 import com.example.gymmate.data.exercisedata.ExerciseRepository
 import com.example.gymmate.data.exercisedata.OfflineExerciseRepository
+import com.example.gymmate.data.fooddata.FoodConsumptionRepository
+import com.example.gymmate.data.fooddata.OfflineFoodConsumptionRepository
 import com.example.gymmate.data.logindata.LoginEntityRepository
 import com.example.gymmate.data.logindata.OfflineLoginEntityRepository
 import com.example.gymmate.data.userdata.OfflineUserEntityRepository
@@ -12,6 +14,7 @@ interface AppContainer {
     val exerciseRepository: ExerciseRepository
     val userEntityRepository: UserEntityRepository
     val loginEntityRepository: LoginEntityRepository
+    val foodConsumptionRepository: FoodConsumptionRepository
 }
 
 class AppDataContainer(private val context: Context): AppContainer{
@@ -25,6 +28,10 @@ class AppDataContainer(private val context: Context): AppContainer{
 
     override val loginEntityRepository: LoginEntityRepository by lazy {
         OfflineLoginEntityRepository(GymmateEmbeddedDatabase.getDatabase(context).loginEntityDao())
+    }
+
+    override val foodConsumptionRepository: FoodConsumptionRepository by lazy {
+        OfflineFoodConsumptionRepository(GymmateEmbeddedDatabase.getDatabase(context).foodConsumptionDao())
     }
 
 }

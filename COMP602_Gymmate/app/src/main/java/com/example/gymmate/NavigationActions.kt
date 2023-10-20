@@ -27,7 +27,7 @@ object GymmateRoute {
     const val CHANGEWORKOUT = "ChangeWorkout"
     const val LOGIN = "Login"
     const val INITIALIZEUSER = "InitializeUser"
-
+    const val ADDFOOD = "AddFood"
 }
 
 data class GymmateTopLevelDestination(
