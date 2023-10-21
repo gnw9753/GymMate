@@ -12,9 +12,11 @@ import com.example.gymmate.data.logindata.LoginEntity
 import com.example.gymmate.data.logindata.LoginEntityDao
 import com.example.gymmate.data.userdata.UserEntity
 import com.example.gymmate.data.userdata.UserEntityDao
+import com.example.gymmate.data.weightdata.WeightDao
+import com.example.gymmate.data.weightdata.WeightEntity
 
 @Database(
-    entities = [Exercise::class, UserEntity::class, LoginEntity::class, FoodConsumptionEntity::class],
+    entities = [Exercise::class, UserEntity::class, LoginEntity::class, FoodConsumptionEntity::class, WeightEntity::class],
     version = 1,
     exportSchema = false
 )
@@ -23,6 +25,7 @@ abstract class GymmateEmbeddedDatabase : RoomDatabase(){
         abstract fun userEntityDao(): UserEntityDao
         abstract fun loginEntityDao(): LoginEntityDao
         abstract fun foodConsumptionDao(): FoodConsumptionDao
+        abstract fun weightDao(): WeightDao
 
         companion object {
             @Volatile

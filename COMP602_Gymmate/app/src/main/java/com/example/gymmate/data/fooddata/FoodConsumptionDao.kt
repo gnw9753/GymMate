@@ -14,7 +14,7 @@ interface FoodConsumptionDao {
     @Query("SELECT * FROM food_consumption WHERE email = :email")
     fun getAllFoodFromEmail(email: String): Flow<List<FoodConsumptionEntity>>
 
-    @Query("DELETE FRom food_consumption WHERE email = :email")
+    @Query("DELETE FROM food_consumption WHERE email = :email")
     fun deleteAllFoodByEmail(email: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

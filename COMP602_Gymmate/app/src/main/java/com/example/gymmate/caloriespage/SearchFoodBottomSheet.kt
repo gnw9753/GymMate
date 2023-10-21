@@ -111,6 +111,7 @@ fun DisplayFoodItemSlider(viewModel: CaloriesPageViewModel, modifier: Modifier =
             viewModel.foodItemCarb = (viewModel.foodItem.carbs / viewModel.foodItemGram) * it
             viewModel.foodItemProtein = (viewModel.foodItem.protein / viewModel.foodItemGram) * it
             viewModel.foodItemFat = (viewModel.foodItem.fat / viewModel.foodItemGram) * it
+
             viewModel.foodItemCalories = viewModel.foodItemCalories.round(2)
             viewModel.foodItemCarb = viewModel.foodItemCarb.round(2)
             viewModel.foodItemProtein = viewModel.foodItemProtein.round(2)
@@ -198,7 +199,10 @@ fun ConfirmAddButton(
 ) {
     Button(
         onClick = {
-            scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+            scope.launch {
+                viewModel.addFoodToDatabase()
+                bottomSheetState.hide()
+            }.invokeOnCompletion {
                 if (!bottomSheetState.isVisible) {
                     viewModel.openBottomSheet = false
                 }

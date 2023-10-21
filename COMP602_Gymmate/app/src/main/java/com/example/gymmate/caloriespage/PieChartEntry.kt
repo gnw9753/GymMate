@@ -1,9 +1,6 @@
-package com.example.gymmatekotlin
+package com.example.gymmate.caloriespage
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,15 +37,4 @@ fun PieChart(entries: List<PieChartEntry>) {
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BasicPieChart() {
-    val entries = listOf(
-        PieChartEntry(Color.Red, 0.3f),
-        PieChartEntry(Color.Green, 0.4f),
-        PieChartEntry(Color.Blue, 0.3f)
-    )
-    PieChart(entries)
 }

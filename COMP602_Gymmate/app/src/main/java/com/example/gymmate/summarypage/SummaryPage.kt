@@ -45,7 +45,6 @@ import com.example.gymmate.GymmateRoute
 import com.example.gymmate.NavigationActions
 import com.example.gymmate.data.exercisedata.Exercise
 import com.example.gymmate.ui.theme.Typography
-import com.example.gymmatekotlin.BasicPieChart
 import kotlinx.coroutines.launch
 
 @Composable

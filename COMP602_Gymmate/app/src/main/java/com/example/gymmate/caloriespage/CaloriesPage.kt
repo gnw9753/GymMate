@@ -4,49 +4,26 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gymmate.AppViewModelProvider
-import com.example.gymmate.GymmateNavigationBar
-import com.example.gymmate.GymmateRoute
-import com.example.gymmate.NavigationActions
-import com.example.gymmate.data.exercisedata.Exercise
 import com.example.gymmate.ui.theme.Typography
-import com.example.gymmatekotlin.BasicPieChart
-import kotlinx.coroutines.launch
+import com.example.gymmate.ui.theme.calories
+import com.example.gymmate.ui.theme.noCalories
 
 @Composable
 fun CaloriesPage(
@@ -55,6 +32,8 @@ fun CaloriesPage(
 ) {
     val context = LocalContext.current
     viewModel.loadCSV(context)
+    val foodEntityUiState by viewModel.foodEntityUiState.collectAsState()
+    viewModel.calculateNutrition(foodEntityUiState.foodConsumptionList)
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -68,10 +47,18 @@ fun CaloriesPage(
                     viewModel = viewModel,
                 )
             } else {
-                PieCard()
-                LatestCard()
-                QuickAddCard()
-                FoodWeightButton(viewModel = viewModel)
+                PieCard(
+                    viewModel,
+                    modifier = Modifier.weight(0.31f)
+                )
+                LatestCard(foodEntityUiState.foodConsumptionList, modifier = Modifier.weight(0.31f))
+                QuickAddCard(
+                    foodEntityUiState.foodConsumptionList,
+                    viewModel,
+                    modifier = Modifier.weight(0.31f)
+                )
+                FoodWeightButton(viewModel = viewModel, modifier = Modifier.weight(0.07f))
+                AddWeightBottomSheet(viewModel = viewModel)
             }
 
         }
@@ -91,26 +78,46 @@ fun FoodWeightButton(
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(5.dp)
     ) {
-        Button(onClick = {
-            viewModel.displayAddFood = true
-        }) {
+        Button(
+            onClick = {
+                viewModel.displayAddFood = true
+            },
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+                .padding(end = 5.dp)
+        ) {
             Text(text = "Add Food")
         }
-        Spacer(modifier = Modifier.weight(1f))
-        Button(onClick = {
-        }) {
+        Button(
+            onClick = {
+                viewModel.openWeightBottomSheet = !viewModel.openWeightBottomSheet
+            },
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+                .padding(start = 5.dp)
+        ) {
             Text(text = "Add Weight")
         }
     }
 }
 
 
+///////////////////////
+// Start of Pie Card //
+///////////////////////
 @Composable
-fun PieCard(modifier: Modifier = Modifier) {
+fun PieCard(
+    viewModel: CaloriesPageViewModel,
+    modifier: Modifier = Modifier
+) {
     Card(
         modifier = Modifier
             .padding(5.dp)
@@ -120,157 +127,96 @@ fun PieCard(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .padding(5.dp)
         ) {
-            BasicPieChart()
-            PieCardText()
+            viewModel.calculateCalorieRequirement()
+
+            val entries = listOf(
+                PieChartEntry(calories, (viewModel.totalCalories / viewModel.caloriesRequired)),
+                PieChartEntry(
+                    noCalories,
+                    ((viewModel.caloriesRequired - viewModel.totalCalories) / viewModel.caloriesRequired)
+                )
+            )
+            PieChart(entries)
+            PieCardText(viewModel)
         }
 
     }
 }
 
-///////////////////////
-// Start of Pie Card //
-///////////////////////
-
 @Composable
 fun PieCardText(
-    //user: User
+    viewModel: CaloriesPageViewModel,
 ) {
-    Column(
-        modifier = Modifier
-            .padding(5.dp)
-    ) {
-        // Header
-        DisplayText(displayText = "Calories Needed", typography = Typography.headlineSmall)
-        DisplayText(displayText = "2200cal", typography = Typography.bodyMedium)
-        DisplayText(displayText = "Macros", typography = Typography.headlineSmall)
-        DisplayText(displayText = "Protein", typography = Typography.bodyMedium)
-        DisplayText(displayText = "Carbs", typography = Typography.bodyMedium)
-        DisplayText(displayText = "Fat", typography = Typography.bodyMedium)
+    if (viewModel.caloriesRequired > 0) {
+        Column(
+            modifier = Modifier
+                .padding(5.dp)
+        ) {
+            // Header
+            DisplayText(displayText = "Calories Needed", typography = Typography.headlineSmall)
+            DisplayText(
+                displayText = (viewModel.totalCalories.toString() + " / " + viewModel.caloriesRequired.toString()),
+                typography = Typography.bodyMedium
+            )
+            DisplayText(displayText = "Macros", typography = Typography.headlineSmall)
+            DisplayText(
+                displayText = viewModel.totalProtein.toString() + " | " + calculateValue(
+                    viewModel.caloriesRequired.toInt(),
+                    10,
+                    4
+                ).toString() + " ~ " + calculateValue(
+                    viewModel.caloriesRequired.toInt(),
+                    30,
+                    4
+                ).toString() + "g Protein",
+                typography = Typography.bodyMedium
+            )
+            DisplayText(
+                displayText = viewModel.totalCarbs.toString() + " | " + calculateValue(
+                    viewModel.caloriesRequired.toInt(),
+                    45,
+                    4
+                ).toString() + " ~ " + calculateValue(
+                    viewModel.caloriesRequired.toInt(),
+                    65,
+                    4
+                ).toString() + "g Carbs",
+                typography = Typography.bodyMedium
+            )
+            if (viewModel.getAge() >= 51) {
+                DisplayText(
+                    displayText = viewModel.totalFat.toString() + " | " + calculateValue(
+                        viewModel.caloriesRequired.toInt(),
+                        20,
+                        9
+                    ).toString() + " ~ " + calculateValue(
+                        viewModel.caloriesRequired.toInt(),
+                        35,
+                        9
+                    ).toString() + "g Fat",
+                    typography = Typography.bodyMedium
+                )
+            } else {
+                DisplayText(
+                    displayText = viewModel.totalFat.toString() + " | " + calculateValue(
+                        viewModel.caloriesRequired.toInt(),
+                        20,
+                        9
+                    ).toString() + " ~ " + calculateValue(
+                        viewModel.caloriesRequired.toInt(),
+                        35,
+                        9
+                    ).toString() + "g Fat",
+                    typography = Typography.bodyMedium
+                )
+            }
+        }
     }
 }
 
 /////////////////////
 // End of Pie card //
 /////////////////////
-
-//////////////////////
-// Latest Food Card //
-//////////////////////
-
-@Composable
-fun LatestCard(
-    modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = Modifier
-            .padding(5.dp)
-            .fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            // Title
-            Text(
-                text = "Latest",
-                style = Typography.headlineMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-
-            )
-            var foodList = listOf("burger", "big burger", "cheese burger")
-            DisplayLatestFood(foodList = foodList)
-        }
-    }
-}
-
-@Composable
-fun DisplayLatestFood(foodList: List<String>, modifier: Modifier = Modifier) {
-    var count = 0
-    for (food in foodList) {
-        if (count > 4) {
-            break
-        }
-        Row() {
-            food?.let {
-                DisplayText(
-                    displayText = " • " + it,
-                    typography = Typography.displaySmall,
-                    modifier.padding(3.dp)
-                )
-                count++
-            }
-        }
-    }
-}
-
-/////////////////////////////
-// End of Latest food card //
-/////////////////////////////
-
-/////////////////////////////
-// Start of Quick add Card //
-/////////////////////////////
-@Composable
-fun QuickAddCard(modifier: Modifier = Modifier) {
-    Card(
-        modifier = Modifier
-            .padding(5.dp)
-            .fillMaxWidth()
-    ) {
-        // Title
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = "Quick Add",
-                style = Typography.headlineMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-            )
-            var foodList = listOf("burger", "big burger", "cheese burger")
-            var count = 0
-            for (food in foodList) {
-                if (count > 2) break
-                food?.let {
-                    QuickAddRow(food = it)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun QuickAddRow(food: String, modifier: Modifier = Modifier) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        Text(
-            text = food,
-            style = Typography.displaySmall,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .padding(5.dp)
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .padding(5.dp)
-        ) {
-            Text(text = "Add")
-        }
-    }
-}
-
-///////////////////////////
-// End of Quick add card //
-///////////////////////////
 
 
 @Composable
@@ -280,4 +226,9 @@ fun DisplayText(displayText: String, typography: TextStyle, modifier: Modifier =
         style = typography,
         modifier = modifier
     )
+}
+
+fun calculateValue(doubleValue: Int, rate: Int, divide: Int): Int {
+    // Calculate the result
+    return (rate * doubleValue / 100 / divide)
 }

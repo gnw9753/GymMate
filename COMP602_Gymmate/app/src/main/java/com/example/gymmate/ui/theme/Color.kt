@@ -2,6 +2,9 @@ package com.example.gymmate.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val calories = Color(0xFFffb961)
+val noCalories = Color(0xFFffddb9)
+
 val md_theme_light_primary = Color(0xFF006C4C)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFF89F8C7)
